@@ -2,30 +2,45 @@ Arquitetura Modular
 
 📚 Objetivo
 
-Este repositório apresenta a implementação de uma arquitetura modular para leitura e conversão de valores analógicos do ADC interno do Raspberry Pi Pico W. O projeto inclui a conversão de valores lidos do sensor interno de temperatura em graus Celsius, além de testes unitários utilizando a biblioteca Unity.
+Este repositório apresenta um exemplo de projeto modular em C para o Raspberry Pi Pico W, com foco em organização por camadas (HAL, drivers e aplicação). O projeto pode ser facilmente expandido para incluir sensores, atuadores e periféricos, mantendo separação clara entre hardware e lógica de aplicação.
 
 📂 Estrutura do Repositório
 
-/arquitetura_modular
-│── /src            # Código-fonte principal (ex: temperature.c)
-│── /include        # Cabeçalhos (.h)
-│── /tests          # Testes unitários com Unity
-│── /Unity          # Biblioteca Unity para testes
-│   └── /src        # Arquivos unity.c e unity.h
-│── Makefile        # Compilação dos testes
-│── README.md       # Documentação do projeto
+/ARQUITETURA_MODULAR
+│── /app               # Código da aplicação principal (main.c, lógica de uso)
+│── /build             # Diretório de build (gerado pelo CMake)
+│── /drivers           # Módulos de drivers (ex: sensores, botões, joystick)
+│── /hal               # Camada de abstração de hardware (ex: ADC, GPIO)
+│── /include           # Arquivos de cabeçalho compartilhados
+│── .vscode            # Configurações de ambiente do VS Code
+│── CMakeLists.txt     # Configuração do projeto para CMake
+│── pico_sdk_import.cmake # Inclusão do SDK do Raspberry Pi Pico
+│── blink.pio          # Código PIO gerado ou incluído (opcional)
+│── .gitignore         # Arquivos ignorados pelo Git
+│── README.md          # Documentação do projeto
 
-🧪 Testes
+⚙️ Sobre a Arquitetura
 
-O projeto utiliza a biblioteca Unity para realizar testes unitários simples em C. O teste principal verifica se a conversão de ADC para temperatura está correta, com margem de erro aceitável.
+O projeto segue a seguinte divisão modular:
 
-Para rodar os testes:
+    HAL (Hardware Abstraction Layer): encapsula o acesso direto ao hardware, como leitura de ADC ou controle de pinos.
 
+    Drivers: implementa a lógica de dispositivos específicos, como sensores ou atuadores, usando a HAL.
+
+    App: contém o fluxo principal da aplicação, utilizando os drivers de forma abstrata.
+
+🛠️ Compilação
+
+Este projeto é configurado para ser compilado com o CMake e o SDK da Raspberry Pi Pico.
+Exemplo de compilação:
+
+mkdir build
+cd build
+cmake ..
 make
-./test_temperature
 
 👤 Autor
 
 João Fernandes – Hbr Campinas
 
-Se tiver dúvidas, sugestões ou quiser contribuir, fique à vontade para abrir uma issue ou enviar um pull request. 🚀
+Contribuições, dúvidas ou sugestões são muito bem-vindas! Abra uma issue ou envie um PR 🚀
